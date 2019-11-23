@@ -9,12 +9,26 @@ const INITIAL_STATE = [
   },
   {
     text: 'Another todo not',
-    id: '123'
+    id: '456'
   }
 ];
 
 const TodoApp = () => {
   const [todos, setTodos] = useState(INITIAL_STATE);
+  const [todo, setTodo] = useState('');
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    setTodos(todos => {
+      return todos.concat({ text: todo, id: new Date().getTime() });
+    });
+    setTodo('');
+  };
+
+  const handleChange = (e) => {
+    setTodo(e.currentTarget.value);
+  };
 
   return (
     <div>
@@ -24,13 +38,20 @@ const TodoApp = () => {
       </time>
 
       <section>
-        <ul>
+        <ul className="todo-list">
           {
             todos.map((todo) => {
               return <TodoItem key={todo.id} text={todo.text} />
             })
           }
         </ul>
+        <form onSubmit={onSubmit}>
+          <label htmlFor="todo-input">
+            Todo text:
+            <input type="text" name="todo" id="todo-input" onChange={handleChange} value={todo} />
+          </label>
+          <button type="submit">Add Todo</button>
+        </form>
       </section>
     </div>
   );
