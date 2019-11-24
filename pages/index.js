@@ -30,6 +30,12 @@ const TodoApp = () => {
     setTodo(e.currentTarget.value);
   };
 
+  const handleDelete = (id) => {
+    setTodos(todos => {
+      return todos.filter((todo) => todo.id !== id);
+    });
+  };
+
   return (
     <div>
       <h1>Team To-Do List</h1>
@@ -41,7 +47,7 @@ const TodoApp = () => {
         <ul className="todo-list">
           {
             todos.map((todo) => {
-              return <TodoItem key={todo.id} text={todo.text} />
+              return <TodoItem key={todo.id} text={todo.text} todoId={todo.id} handleDelete={handleDelete} />
             })
           }
         </ul>
