@@ -21,10 +21,9 @@ describe('To-Do Application', () => {
       .click();
 
     cy
-      .get('.todo-list li')
-      .last()
+      .get('.todo-list')
       .should(($lis) => {
-        expect($lis.eq($lis.length - 1)).to.not.contain('todo-item-test');
+        expect($lis).to.not.contain('todo-item-test');
       });
   });
 });
