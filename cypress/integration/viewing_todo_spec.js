@@ -16,4 +16,15 @@ describe('Renders To-Do Application', () => {
     cy
       .contains(today.toLocaleDateString("en-GB", { weekday: 'short', day: 'numeric', year: 'numeric', month: 'long'}));
   });
+
+  it('renders the user avatar', () => {
+    const today = new Date();
+
+    cy.visit('http://localhost:3000');
+
+    cy
+      .get('.user-area img')
+      .should('have.attr', 'src')
+      .should('include','http://gravatar.com/avatar/67b8c521fee9aeab7886b4d1dc6947e1?s=50');
+  });
 });
